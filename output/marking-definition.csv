@@ -1,0 +1,2 @@
+"type","id","created","modified","definition","created_by_ref","definition_type","x_mitre_attack_spec_version"
+"marking-definition","marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168","2017-06-01T00:00:00.000Z","","{'statement': 'Copyright 2015-2022, The MITRE Corporation. MITRE ATT&CK and ATT&CK are registered trademarks of The MITRE Corporation.'}","identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5","statement","2.1.0"
