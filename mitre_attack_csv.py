@@ -43,7 +43,7 @@ def fetch_attack(url: str) -> Attack:
 def assert_for_stix(attack: Attack) -> None:
     assert ('spec_version' in attack), 'Failure reading version info in JSON file'
     assert ('objects' in attack), 'Failure reading objects in JSON file'
-    assert (attack['spec_version'] in ('2.0', '2.1')), 'Unsupported STIX version'  # Ryu
+    assert (attack['spec_version'] in ('2.0', '2.1')), 'Unsupported STIX version'
 
 
 def attack_by_type(attack: Attack) -> DefaultDict[str, Attacks]:
@@ -105,7 +105,7 @@ def make_header(attacks: Attacks) -> Header:
 
 def get_fields(names: Header, attack: Attack) -> Attack:
     fields = {name: attack.get(name, '') for name in names}
-    if options.id and 'external_references' in attack:  # Ryu
+    if options.id and 'external_references' in attack:
         for r in attack['external_references']:
             if r.get('source_name') == 'mitre-attack':
                 fields['mitre_attack_id'] = r['external_id']
@@ -128,8 +128,8 @@ def save_csv(filename: str, attacks: Attacks) -> None:
 
 
 def main() -> None:
-    print(f'Fetching ATT&CK v.{options.version} STIX file ...')  # Ryu
-    url = f'{URL_PREFIX}{options.version}.json'  # Ryu
+    print(f'Fetching ATT&CK v.{options.version} STIX file ...')
+    url = f'{URL_PREFIX}{options.version}.json'
     attack = _load_attack() or fetch_attack(url)
     assert_for_stix(attack)
     os.makedirs(f'{OUTPUT_DIR}/v{options.version}', exist_ok=True)
@@ -141,7 +141,7 @@ def main() -> None:
         save_csv(f'{OUTPUT_DIR}/v{options.version}/{csv_filename}.csv', attacks)
 
 
-def parse_args() -> argparse.Namespace:  # Ryu
+def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description='Produce SDO/SRO CSV files from ATT&CK STIX')
     parser.add_argument('--id', action='store_true',
                         help='add mitre_attack_id column')
@@ -151,5 +151,5 @@ def parse_args() -> argparse.Namespace:  # Ryu
 
 
 if __name__ == '__main__':
-    options = parse_args()  # Ryu
+    options = parse_args()
     main()
