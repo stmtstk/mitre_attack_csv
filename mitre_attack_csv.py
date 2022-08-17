@@ -4,20 +4,21 @@ import re
 import csv
 import json
 import os
+import argparse
 import requests
 import sys
 from collections import defaultdict
 from typing import NewType, Any, List, Tuple, Dict, DefaultDict, Optional, cast
 
-URL = "https://github.com/mitre/cti/raw/master/enterprise-attack/enterprise-attack.json"
+URL_PREFIX = 'https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/enterprise-attack/enterprise-attack-'
 INPUT_CACHE = 'attack.json'
-OUTPUT_DIR = './attack'
+OUTPUT_DIR = './attack-csv'
+DEFAULT_VERSION = '11.3'
 
 Attack = NewType('Attack', Dict[str, Any])
 Attacks = NewType('Attacks', List[Attack])
 AttackByType = NewType('AttackByType', Dict[str, Attacks])
 Header = NewType('Header', Tuple[str, ...])
-
 
 def _load_attack() -> Optional[Attack]:
     try:
@@ -36,7 +37,7 @@ def fetch_attack(url: str) -> Attack:
 def assert_for_stix(attack: Attack) -> None:
     assert ('spec_version' in attack), "Failure reading version info in JSON file"
     assert ('objects' in attack), "Failure reading objects in JSON file"
-    assert (attack['spec_version'] == '2.0'), "Unsupported STIX version"
+    assert (attack['spec_version'] == '2.0' or attack['spec_version'] == '2.1'), "Unsupported STIX version" # Ryu
 
 
 def attack_by_type(attack: Attack) -> DefaultDict[str, Attacks]:
@@ -89,18 +90,27 @@ def minimd(s: str, fmt: str="text") -> str:
 
 
 def make_header(attacks: Attacks) -> Header:
+    common_header = ['type', 'id', 'created', 'modified']
+    if options.id:
+        common_header.append('mitre_attack_id')
     names = dict.fromkeys(name for attack in attacks for name in attack)
-    names = dict.fromkeys(['type', 'id', 'created', 'modified', *names])
+    names = dict.fromkeys([*common_header, *names])
     return cast(Header, tuple(names))
 
 
 def get_fields(names: Header, attack: Attack) -> Attack:
-    return cast(Attack, {name: attack.get(name, '') for name in names})
+    fields = {name: attack.get(name, '') for name in names}
+    if options.id and 'external_references' in attack:  # Ryu
+        for r in attack['external_references']:
+            if r.get('source_name') == 'mitre-attack':
+                fields['mitre_attack_id'] = r['external_id']
+    return cast(Attack, fields)
 
 
 def encode(attack: Attack) -> Attack:
-    return cast(Attack, {name: minimd(value) if name == 'description' else value
-                         for name, value in attack.items()})
+    encoded_attack = {name: minimd(value) if name == 'description' else value
+                      for name, value in attack.items()}
+    return cast(Attack, encoded_attack)
 
 
 def save_csv(filename: str, attacks: Attacks) -> None:
@@ -113,13 +123,27 @@ def save_csv(filename: str, attacks: Attacks) -> None:
 
 
 def main() -> None:
-    print("Fetching latest enterprise-attack.json ...")
-    attack = _load_attack() or fetch_attack(URL)
+    print('Fetching ATT&CK v.' + options.version + ' STIX file ...') # Ryu
+    url = URL_PREFIX + options.version + '.json' # Ryu
+    attack = _load_attack() or fetch_attack(url)
     assert_for_stix(attack)
-    os.makedirs(f'{OUTPUT_DIR}', exist_ok=True)
+    os.makedirs(f'{OUTPUT_DIR}/v{options.version}', exist_ok=True)
     for type_, attacks in attack_by_type(attack).items():
         print(f"Generating CSV file ...({type_})")
-        save_csv(f'{OUTPUT_DIR}/{type_}.csv', attacks)
+        csv_filename = type_  
+        if options.id:
+            csv_filename = csv_filename + "-w-id"          
+        save_csv(f'{OUTPUT_DIR}/v{options.version}/{csv_filename}.csv', attacks)
+
+
+def parse_args() -> argparse.Namespace: # Ryu
+    parser = argparse.ArgumentParser(description='Produce SDO/SRO CSV files from ATT&CK STIX')
+    parser.add_argument('--id', action='store_true', help='add mitre_attack_id column')
+    parser.add_argument('-v', '--version', default=DEFAULT_VERSION, \
+                        help='specify ATT&CK version to use')
+    return parser.parse_args()
+
 
 if __name__ == '__main__':
+    options = parse_args() # Ryu
     main()
