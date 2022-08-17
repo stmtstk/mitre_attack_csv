@@ -96,7 +96,7 @@ def minimd(s: str, fmt: str = 'text') -> str:
 
 def make_header(attacks: Attacks) -> Header:
     common_header = ['type', 'id', 'created', 'modified']
-    if options.id:
+    if options.attack_id:
         common_header.append('mitre_attack_id')
     names = dict.fromkeys(name for attack in attacks for name in attack)
     names = dict.fromkeys([*common_header, *names])
@@ -105,7 +105,7 @@ def make_header(attacks: Attacks) -> Header:
 
 def get_fields(names: Header, attack: Attack) -> Attack:
     fields = {name: attack.get(name, '') for name in names}
-    if options.id and 'external_references' in attack:
+    if options.attack_id and 'external_references' in attack:
         for r in attack['external_references']:
             if r.get('source_name') == 'mitre-attack':
                 fields['mitre_attack_id'] = r['external_id']
@@ -128,24 +128,24 @@ def save_csv(filename: str, attacks: Attacks) -> None:
 
 
 def main() -> None:
-    print(f'Fetching ATT&CK v.{options.version} STIX file ...')
-    url = f'{URL_PREFIX}{options.version}.json'
+    print(f'Fetching ATT&CK v.{options.attack_version} STIX file ...')
+    url = f'{URL_PREFIX}{options.attack_version}.json'
     attack = _load_attack() or fetch_attack(url)
     assert_for_stix(attack)
-    os.makedirs(f'{OUTPUT_DIR}/v{options.version}', exist_ok=True)
+    os.makedirs(f'{OUTPUT_DIR}/v{options.attack_version}', exist_ok=True)
     for type_, attacks in attack_by_type(attack).items():
         print(f'Generating CSV file ...({type_})')
         csv_filename = type_
-        if options.id:
+        if options.attack_id:
             csv_filename = f'{csv_filename}-w-id'
-        save_csv(f'{OUTPUT_DIR}/v{options.version}/{csv_filename}.csv', attacks)
+        save_csv(f'{OUTPUT_DIR}/v{options.attack_version}/{csv_filename}.csv', attacks)
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description='Produce SDO/SRO CSV files from ATT&CK STIX')
-    parser.add_argument('--id', action='store_true',
+    parser.add_argument('--attack_id', action='store_true',
                         help='add mitre_attack_id column')
-    parser.add_argument('-v', '--version', default=DEFAULT_VERSION,
+    parser.add_argument('--attack_version', default=DEFAULT_VERSION,
                         help='specify ATT&CK version to use')
     return parser.parse_args()
 
