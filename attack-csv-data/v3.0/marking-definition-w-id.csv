@@ -1,0 +1,2 @@
+"type","id","created","modified","mitre_attack_id","created_by_ref","definition_type","definition","spec_version","x_mitre_attack_spec_version","x_mitre_domains"
+"marking-definition","marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168","2017-06-01T00:00:00Z","","","identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5","statement","{'statement': 'Copyright 2017, The MITRE Corporation'}","2.1","2.1.0","['enterprise-attack']"
