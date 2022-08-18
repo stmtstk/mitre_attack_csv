@@ -14,6 +14,7 @@ URL_PREFIX = 'https://raw.githubusercontent.com/mitre-attack/attack-stix-data/ma
 INPUT_CACHE = 'attack.json'
 OUTPUT_DIR = './attack-csv'
 DEFAULT_VERSION = '11.3'
+TOOL_VERSION = '0.0'
 
 options = argparse.Namespace(
     id=False,
@@ -147,6 +148,8 @@ def parse_args() -> argparse.Namespace:
                         help='add mitre_attack_id column')
     parser.add_argument('--attack_version', default=DEFAULT_VERSION,
                         help='specify ATT&CK version to use')
+    parser.add_argument('--version', '-V', action='version', version=os.path.basename(__file__) + ' version ' + TOOL_VERSION,
+                        help='show version and exit')
     return parser.parse_args()
 
 
