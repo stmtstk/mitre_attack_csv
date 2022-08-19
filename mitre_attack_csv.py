@@ -14,7 +14,7 @@ URL_PREFIX = 'https://raw.githubusercontent.com/mitre-attack/attack-stix-data/ma
 INPUT_CACHE = 'attack.json'
 OUTPUT_DIR = './attack-csv'
 DEFAULT_VERSION = '11.3'
-TOOL_VERSION = '0.0'
+TOOL_VERSION = '1.0.0'
 
 options = argparse.Namespace(
     id=False,
