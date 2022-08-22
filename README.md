@@ -6,3 +6,5 @@ You can find the resulting CSV files for the different versions of ATT&CK in the
 - Run the script with --attack_version VERSION to specify the ATT&CK version to use
 - Run the script with -h to see its help message
 
+This project makes use of ATT&CK® 
+https://attack.mitre.org/resources/terms-of-use/
