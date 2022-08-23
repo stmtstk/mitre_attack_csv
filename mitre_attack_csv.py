@@ -13,12 +13,12 @@ from typing import NewType, Any, List, Tuple, Dict, DefaultDict, Optional, cast
 URL_PREFIX = 'https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/enterprise-attack/enterprise-attack-'
 INPUT_CACHE = 'attack.json'
 OUTPUT_DIR = './attack-csv'
-DEFAULT_VERSION = '11.3'
+DEFAULT_ATTACK_VERSION = '11.3'
 TOOL_VERSION = '1.0.0'
 
 options = argparse.Namespace(
     id=False,
-    version=DEFAULT_VERSION,
+    version=DEFAULT_ATTACK_VERSION,
 )
 
 Attack = NewType('Attack', Dict[str, Any])
@@ -146,7 +146,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description='Produce SDO/SRO CSV files from ATT&CK STIX')
     parser.add_argument('--attack_id', action='store_true',
                         help='add mitre_attack_id column')
-    parser.add_argument('--attack_version', default=DEFAULT_VERSION,
+    parser.add_argument('--attack_version', default=DEFAULT_ATTACK_VERSION,
                         help='specify ATT&CK version to use')
     parser.add_argument('--version', '-V', action='version', version=os.path.basename(__file__) + ' version ' + TOOL_VERSION,
                         help='show version and exit')
