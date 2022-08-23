@@ -20,7 +20,7 @@ For example, the CSV file for attack-pattern SDO of ATT&CK version 11.3 WITHOUT 
 |v11.1|[attack-csv-data/v11.1/](attack-csv-data/v11.1/)|
 |v11.0|[attack-csv-data/v11.0/](attack-csv-data/v11.0/)|
 |v10.1|[attack-csv-data/v10.1/](attack-csv-data/v10.1/)|
-|v10.0|[o](attack-csv-data/v10.0/)|
+|v10.0|[attack-csv-data/v10.0/](attack-csv-data/v10.0/)|
 |v9.0|[attack-csv-data/v10.0/](attack-csv-data/v9.0/)|
 |v8.2|[attack-csv-data/v8.2/](attack-csv-data/v8.2/)|
 |v8.1|[attack-csv-data/v8.1/](attack-csv-data/v8.1/)|
