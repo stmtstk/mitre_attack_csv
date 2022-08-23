@@ -5,6 +5,7 @@ You can find the resulting CSV files for the different versions of ATT&CK in the
 - Run the script with --attack_id to include "mitre-attack-id" column (values are taken from external_id of source_name="mitre-attack" external_reference)
 - Run the script with --attack_version VERSION to specify the ATT&CK version to use
 - Run the script with -h to see its help message
+- Run the script with -version or -V to see its version
 
 ## Welcome to MITRE ATT&CK CSV data storage
 
