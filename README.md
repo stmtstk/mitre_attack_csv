@@ -1,5 +1,7 @@
 # mitre_attack_csv
 
+![Release Badge](https://shields.io/github/v/release/stmtstk/mitre_attack_csv?displa_name=tag)
+
 This repository provides a script to produce ATT&CK CSV files (Enterprise ATT&CK converted to a set of CSV files) and MITRE ATT&CK CSV data storage (attack-csv-data/).
 
 ## mitre_attack_csv.py
