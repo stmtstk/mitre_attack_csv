@@ -33,6 +33,7 @@ jobs:
           sh ./produce-index.sh
           mkdir ./pages_work
           cp -p ./README.md  ./pages_work
+          cp -p ./_config.yml  ./pages_work
           cp -pr ./attack-csv-data ./pages_work
       - name: Setup Pages
         uses: actions/configure-pages@v1
