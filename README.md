@@ -17,7 +17,7 @@ The script (mitre_attack_csv.py) extracts all types of SDOs (STIX Domain Objects
 
 The table below provides the links to the CSV folders corresponding to each ATT&CK version.
 There are two kinds of CSV files for each SDO of each ATT&CK version, one with ATT&CK ID (like TID, Software ID, etc.) and one without.
-For example, the CSV file for attack-pattern SDO of ATT&CK version 11.3 WITHOUT ATT&CK ID is [attack-csv-data/v11.3/attack-pattern.csv](attack-csv-data/v11.3/attack-pattern.csv) and WITH ATT&CK ID is [attack-csv-data/v11.3/attack-pattern-w-id.csv](attack-csv-data/v11.3/attack-pattern-w-id.csv)
+For example, the CSV file for attack-pattern SDO of ATT&CK version 11.3 WITHOUT ATT&CK ID is [attack-csv-data/v11.3/attack-pattern-v11.3.csv](attack-csv-data/v11.3/attack-pattern-v11.3.csv) and WITH ATT&CK ID is [attack-csv-data/v11.3/attack-pattern-w-id-v11.3.csv](attack-csv-data/v11.3/attack-pattern-w-id-v11.3.csv)
 
 
 |ATT&CK Version | CSV Folder|

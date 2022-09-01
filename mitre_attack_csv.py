@@ -201,7 +201,7 @@ def main() -> None:
         csv_filename = type_
         if options.attack_id:
             csv_filename = f'{csv_filename}-w-id'
-        save_csv(f'{OUTPUT_DIR}/v{options.attack_version}/{csv_filename}.csv', attacks)
+        save_csv(f'{OUTPUT_DIR}/v{options.attack_version}/{csv_filename}-v{options.attack_version}.csv', attacks)
 
 
 def parse_args() -> argparse.Namespace:
