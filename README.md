@@ -48,5 +48,5 @@ For example, the CSV file for attack-pattern SDO of ATT&CK version 11.3 WITHOUT 
 |v1.0|[attack-csv-data/v1.0/](attack-csv-data/v1.0/)|
 
 
-This project makes use of ATT&CK®   
-https://attack.mitre.org/resources/terms-of-use/
+This project makes use of ATT&CK®  
+https&#58;//attack.mitre.org/resources/terms-of-use/
