@@ -1,7 +1,7 @@
 #!/bin/sh
 
 DIR="attack-csv-data"
-for VER in $(ls $DIR)
+for VER in $(basename $DIR/*)
 do
   INDEX="$DIR/$VER/index.html"
   echo "making $INDEX..."
