@@ -5,7 +5,7 @@ for VER in $(basename $DIR/*)
 do
   INDEX="$DIR/$VER/index.html"
   echo "making $INDEX..."
-  cat > $INDEX << EOF
+  cat > "$INDEX" << EOF
 <!DOCTYPE html>
 <html>
   <head>
@@ -25,14 +25,14 @@ do
 EOF
   for FILE in $(/usr/bin/env ls "$DIR/$VER/" | /usr/bin/env grep -e "-w-id")
   do
-    cat >> $INDEX << EOF
+    cat >> "$INDEX" << EOF
       <tr>
-        <td>$(/usr/bin/env basename $FILE -w-id-$VER.csv)</td>
+        <td>$(/usr/bin/env basename "$FILE" -w-id-"$VER".csv)</td>
         <td><a href="$FILE">$FILE</a></td>
       </tr>
 EOF
   done
-  cat >> $INDEX << EOF
+  cat >> "$INDEX" << EOF
     </table>
 
     <h2>CSV files <u><i>WITHOUT</i></u> ATT&CK ID</h2>
@@ -45,14 +45,14 @@ EOF
 EOF
   for FILE in $(/usr/bin/env ls "$DIR/$VER/" | /usr/bin/env grep ".csv" | /usr/bin/env grep -v -e "-w-id")
   do
-    cat >> $INDEX << EOF
+    cat >> "$INDEX" << EOF
       <tr>
-        <td>$(/usr/bin/env basename $FILE -$VER.csv)</td>
+        <td>$(/usr/bin/env basename "$FILE" -"$VER".csv)</td>
         <td><a href="$FILE">$FILE</a></td>
       </tr>
 EOF
   done
-  cat >> $INDEX << EOF
+  cat >> "$INDEX" << EOF
     </table>
 
   </body>
