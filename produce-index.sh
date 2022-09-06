@@ -23,11 +23,11 @@ do
         <th width="400">CSV</th>
       </tr>
 EOF
-  for FILE in $(/usr/bin/env ls "$DIR/$VER/" | /usr/bin/env grep -e "-w-id.csv")
+  for FILE in $(/usr/bin/env ls "$DIR/$VER/" | /usr/bin/env grep -e "-w-id")
   do
     cat >> $INDEX << EOF
       <tr>
-        <td>$(/usr/bin/env basename $FILE -w-id.csv)</td>
+        <td>$(/usr/bin/env basename $FILE -w-id-$VER.csv)</td>
         <td><a href="$FILE">$FILE</a></td>
       </tr>
 EOF
@@ -43,11 +43,11 @@ EOF
         <th width="400">CSV</th>
       </tr>
 EOF
-  for FILE in $(/usr/bin/env ls "$DIR/$VER/" | /usr/bin/env grep ".csv" | /usr/bin/env grep -v -e "-w-id.csv")
+  for FILE in $(/usr/bin/env ls "$DIR/$VER/" | /usr/bin/env grep ".csv" | /usr/bin/env grep -v -e "-w-id")
   do
     cat >> $INDEX << EOF
       <tr>
-        <td>$(/usr/bin/env basename $FILE .csv)</td>
+        <td>$(/usr/bin/env basename $FILE -$VER.csv)</td>
         <td><a href="$FILE">$FILE</a></td>
       </tr>
 EOF
